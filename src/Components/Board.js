@@ -10,11 +10,10 @@ const Board = () => {
 	};
 
 	const handleClick = (i) => {
-		const winner = calculateWinner(squares);
 		let newArray = [...squares];
 
 		// 이미 선택된 요소는 return
-		if (newArray[i] || winner) return;
+		if (newArray[i] || calculateWinner(squares)) return;
 
 		newArray[i] = isPlayer ? "X" : "O";
 		console.log(newArray);

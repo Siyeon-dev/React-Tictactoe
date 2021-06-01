@@ -29,8 +29,16 @@ const App = () => {
 		);
 
 		setIsPlayer(!isPlayer);
-		setStepNumber(history.length);
+		setStepNumber(nowHistory.length);
 	};
+
+	// =======
+	const winner = calculateWinner(history[history.length - 1].squares);
+	const current = history[stepNumber];
+	const player = isPlayer ? "X" : "O";
+	let status;
+
+	console.log(current);
 
 	const moves = history.map((step, move) => {
 		const desc = move ? "Go to move #" + move : "Go to game start";
@@ -47,11 +55,6 @@ const App = () => {
 		setIsPlayer(step % 2 === 0);
 	};
 
-	// =======
-	const winner = calculateWinner(history[history.length - 1].squares);
-	const player = isPlayer ? "X" : "O";
-	let status;
-
 	winner
 		? (status = "Winner : " + winner)
 		: (status = `Next Player : ${player}`);
@@ -59,8 +62,8 @@ const App = () => {
 	return (
 		<div className='game-tictactoe'>
 			<div className='status'>{status}</div>
-			<Board board={history[history.length - 1]} onClick={handleClick} />
-			<div className='record-game'>{moves}</div>
+			<Board squares={current.squares} onClick={handleClick} />
+			<ol className='record-game'>{moves}</ol>
 		</div>
 	);
 };

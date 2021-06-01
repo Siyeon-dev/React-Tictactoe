@@ -13,15 +13,15 @@ const Board = () => {
 	const renderSquares = (i) => {
 		return (
 			<Square
-				value={history[history.length - 1].squares[i]}
+				value={history[stepNumber].squares[i]}
 				onClick={() => handleClick(i)}
 			/>
 		);
 	};
 
 	const handleClick = (i) => {
-		
-		const current = history[history.length - 1];
+		const nowHistory = history.slice(0, stepNumber + 1);
+		const current = nowHistory[nowHistory.length - 1];
 		const squares = current.squares.slice();
 
 		// 이미 선택된 요소는 return
@@ -29,14 +29,15 @@ const Board = () => {
 
 		squares[i] = isPlayer ? "X" : "O";
 		setHistory(
-			history.concat([
+			nowHistory.concat([
 				{
 					squares,
 				},
 			])
 		);
-		console.log(history);
 		setIsPlayer(!isPlayer);
+		setStepNumber(history.length);
+		console.log(stepNumber);
 	};
 
 	const moves = history.map((step, move) => {

@@ -1,0 +1,18 @@
+.board-row::after {
+	clear: both;
+	content: "";
+	display: table;
+}
+
+.square {
+	background: #fff;
+	border: 1px solid #999;
+	float: left;
+	font-size: 24px;
+	font-weight: bold;
+	height: 34px;
+	width: 34px;
+	margin: 0px;
+	padding: 0px;
+	text-align: center;
+}

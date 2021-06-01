@@ -3,26 +3,41 @@ import Square from "./Square";
 
 const Board = () => {
 	const [isPlayer, setIsPlayer] = useState(true);
-	const [squares, setSquares] = useState(Array(9).fill(null));
+	const [history, setHistory] = useState([
+		{
+			squares: Array(9).fill(null),
+		},
+	]);
 
 	const renderSquares = (i) => {
-		return <Square value={squares[i]} onClick={() => handleClick(i)} />;
+		return (
+			<Square
+				value={history[history.length - 1].squares[i]}
+				onClick={() => handleClick(i)}
+			/>
+		);
 	};
 
 	const handleClick = (i) => {
-		let newArray = [...squares];
+		const current = history[history.length - 1];
+		const squares = current.squares.slice();
 
 		// 이미 선택된 요소는 return
-		if (newArray[i] || calculateWinner(squares)) return;
+		if (squares[i] || calculateWinner(squares)) return;
 
-		newArray[i] = isPlayer ? "X" : "O";
-		console.log(newArray);
-
-		setSquares(newArray);
+		squares[i] = isPlayer ? "X" : "O";
+		setHistory(
+			history.concat([
+				{
+					squares,
+				},
+			])
+		);
+		console.log(history);
 		setIsPlayer(!isPlayer);
 	};
 
-	const winner = calculateWinner(squares);
+	const winner = calculateWinner(history[history.length - 1].squares);
 	const player = isPlayer ? "X" : "O";
 	let status;
 

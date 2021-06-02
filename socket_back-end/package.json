@@ -1,16 +1,17 @@
 {
-  "name": "tic-tac-toe",
-  "version": "1.0.0",
-  "description": "THIS IS TIC TAC TOE GAME's SERVER",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "dotenv": "^10.0.0",
-    "express": "^4.17.1",
-    "socket.io": "^4.1.2"
-  }
+	"type": "module",
+	"name": "tic-tac-toe",
+	"version": "1.0.0",
+	"description": "THIS IS TIC TAC TOE GAME's SERVER",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"dotenv": "^10.0.0",
+		"express": "^4.17.1",
+		"socket.io": "^4.1.2"
+	}
 }

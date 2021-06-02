@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
 import express from "express";
-import socketIO from "socket.io";
+import * as socketIO from "socket.io";
 import http from "http";
 
 dotenv.config();
@@ -8,7 +8,7 @@ dotenv.config();
 const app = express();
 const server = http.createServer(app);
 const PORT = process.env.PORT || 3000;
-const io = socketIO(server);
+const io = new socketIO.Server(server);
 
 io.on("connection", (socket) => {
 	socket.on("join", ({ roomName: room, userName: user }) => {

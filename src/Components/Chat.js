@@ -18,7 +18,7 @@ const Chat = () => {
 	// 해당 방법으로 hook을 사용해 소켓을 관리하면
 	// 렌더링에 따른 소켓 연결 상태를 예측 가능하다.
 	useEffect(() => {
-		setCurrentSocket(socketIOClient(`http://localhost:4002/`, options));
+		setCurrentSocket(socketIOClient(`http://localhost:${PORT}/`, options));
 	}, []);
 
 	return <div>{currentSocket ? <ChatLog socket={currentSocket} /> : ""}</div>;

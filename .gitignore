@@ -22,4 +22,9 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# .env
 /socket_back-end/.env
+/src/Components/.env
+
+# back-end
+/socket_back-end/node_modules

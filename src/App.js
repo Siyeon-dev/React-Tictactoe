@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Board from "./Components/Board";
+import Chat from "./Components/Chat";
 
 const App = () => {
 	const [isPlayer, setIsPlayer] = useState(true);
@@ -64,12 +65,17 @@ const App = () => {
 			<div className='status'>{status}</div>
 			<Board squares={current.squares} onClick={handleClick} />
 			<ol className='record-game'>{moves}</ol>
+
+			<div className='chat'>
+				<Chat />
+			</div>
 		</div>
 	);
 };
 
 export default App;
 
+// ==================================
 const calculateWinner = (squares) => {
 	const lines = [
 		[0, 1, 2],

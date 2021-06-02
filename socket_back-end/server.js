@@ -1,7 +1,4 @@
-const express = require("express");
-const http = require("http");
 const dotenv = require("dotenv");
-const cors = require("cors");
 
 dotenv.config();
 const PORT = process.env.PORT;

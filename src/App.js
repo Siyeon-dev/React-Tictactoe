@@ -65,8 +65,7 @@ const App = () => {
 			<div className='status'>{status}</div>
 			<Board squares={current.squares} onClick={handleClick} />
 			<ol className='record-game'>{moves}</ol>
-
-			<div className='chat'>
+			<div>
 				<Chat />
 			</div>
 		</div>

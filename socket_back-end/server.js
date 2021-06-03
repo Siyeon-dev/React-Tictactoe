@@ -1,11 +1,11 @@
 const dotenv = require("dotenv");
 
 dotenv.config();
-const PORT = process.env.PORT;
 
-var app = require("http").createServer(function (req, res) {
+const PORT = process.env.PORT;
+const app = require("http").createServer((req, res) => {
 	// Set CORS headers
-	res.setHeader("Access-Control-Allow-Origin", "http://localhost:4004/");
+	res.setHeader("Access-Control-Allow-Origin", "*");
 	res.setHeader("Access-Control-Request-Method", "*");
 	res.setHeader("Access-Control-Allow-Methods", "OPTIONS, GET");
 	res.setHeader("Access-Control-Allow-Headers", "*");
@@ -16,21 +16,21 @@ var app = require("http").createServer(function (req, res) {
 	}
 });
 
-var io = require("socket.io")(app);
+const io = require("socket.io")(app);
+let count = 0;
 
 io.on("connection", (socket) => {
-	socket.on("join", ({ roomName: room, userName: user }) => {
-		socket.join(room);
-		io.to(room).emmit("onConnect", `${user} 님이 입장했습니다.`);
+	console.log(`User Connected : ${socket.id}`);
+	const name = "user" + count++;
+	io.to(socket.id).emit("userName", name);
 
-		socket.on("onSend", (messageItem) => {
-			io.to(room).emit("onReceive", messageItem);
-		});
+	socket.on("disconnect", () => {
+		console.log("user disconnected: ", socket.id);
+	});
 
-		socket.on("disconnect", () => {
-			socket.leave(room);
-			io.to(room).emit("onDisconnect", `${user} 님이 퇴장하셨습니다.`);
-		});
+	socket.on("sendMessage", (msg) => {
+		console.log(msg);
+		io.emit("receivedMessage", msg);
 	});
 });
 

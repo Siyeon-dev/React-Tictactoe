@@ -1,26 +1,48 @@
 import React, { useEffect, useState } from "react";
-import socketIOClient from "socket.io-client";
+import io from "socket.io-client";
 import dotenv from "dotenv";
-import ChatLog from "./ChatLog";
+
 dotenv.config();
 
-const Chat = () => {
-	const PORT = process.env.PORT || 4002;
-	const [currentSocket, setCurrentSocket] = useState();
+const PORT = process.env.PORT || 4000;
+const socket = io.connect(`http://localhost:${PORT}`);
 
-	const options = {
-		rememberUpgrade: true,
-		transports: ["websocket"],
-		secure: true,
-		rejectUnauthorized: false,
-	};
-	// 해당 방법으로 hook을 사용해 소켓을 관리하면
-	// 렌더링에 따른 소켓 연결 상태를 예측 가능하다.
+const Chat = () => {
+	const [state, setState] = useState({ message: "", userName: "g" });
+	const [chat, setChat] = useState([]);
+	const [arrayState, setArrayState] = useState([]);
+
 	useEffect(() => {
-		setCurrentSocket(socketIOClient(`http://localhost:${PORT}/`, options));
+		socket.on("message", ({ message, userName }) => {
+			setChat([...chat, { message, userName }]);
+		});
 	}, []);
 
-	return <div>{currentSocket ? <ChatLog socket={currentSocket} /> : ""}</div>;
+	useEffect(() => {
+		setArrayState([...arrayState, ...chat]);
+	}, [chat]);
+
+	const onTextChange = (e) => {
+		setState({ message: e.target.value, userName: "g" });
+	};
+
+	const onMessageSubmit = (e) => {
+		const { message, userName } = state;
+		socket.emit("message", { message, userName });
+		setState({ message: "", userName });
+	};
+
+	return (
+		<div>
+			<input onChange={onTextChange}></input>
+			<button onClick={onMessageSubmit}>전송</button>
+			<ol>
+				{arrayState.map((v) => {
+					return <div>{`message : ${v.message}`}</div>;
+				})}
+			</ol>
+		</div>
+	);
 };
 
 export default Chat;

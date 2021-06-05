@@ -9,6 +9,11 @@ const io = require("socket.io")(server, {
 });
 
 io.on("connection", (socket) => {
+	socket.on("onJoin", ({ roomName: room, userName: user }) => {
+		socket.join(room);
+		io.to(room).emit("onConnect", `${user}님이 입장하셨습니다.`);
+	});
+
 	socket.on("message", ({ message, userName }) => {
 		console.log(message, userName);
 		io.emit("message", { message, userName });

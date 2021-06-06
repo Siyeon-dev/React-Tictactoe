@@ -7,7 +7,7 @@ dotenv.config();
 const PORT = process.env.PORT || 4000;
 const socket = io.connect(`http://localhost:${PORT}`);
 
-const WaitingRoom = () => {
+const WaitingRoom = (props) => {
 	const [state, setState] = useState({ userName: "", roomName: "" });
 
 	useEffect(() => {
@@ -20,6 +20,7 @@ const WaitingRoom = () => {
 		const { userName, roomName } = state;
 		socket.emit("onJoin", { userName, roomName });
 		console.log(userName, roomName);
+		props.onRoomState(true);
 	};
 
 	const handleUserName = (e) => {

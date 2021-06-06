@@ -37,10 +37,6 @@ const WaitingRoom = (props) => {
 		});
 	};
 
-	useEffect(() => {
-		console.log(state);
-	}, [state]);
-
 	return (
 		<div>
 			<input onChange={handleUserName}></input>

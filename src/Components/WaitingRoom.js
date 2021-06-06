@@ -10,10 +10,16 @@ const socket = io.connect(`http://localhost:${PORT}`);
 const WaitingRoom = () => {
 	const [state, setState] = useState({ userName: "", roomName: "" });
 
-	useEffect(() => {}, []);
+	useEffect(() => {
+		socket.on("onConnect", (msg) => {
+			console.log(msg);
+		});
+	}, []);
 
-	const onJoinRoom = ({ roomName, userName }) => {
-		socket.emit("onJoin", { roomName, userName });
+	const handleJoinRoom = () => {
+		const { userName, roomName } = state;
+		socket.emit("onJoin", { userName, roomName });
+		console.log(userName, roomName);
 	};
 
 	const handleUserName = (e) => {
@@ -38,7 +44,7 @@ const WaitingRoom = () => {
 		<div>
 			<input onChange={handleUserName}></input>
 			<input onChange={handleRoomName}></input>
-			<button>전송</button>
+			<button onClick={handleJoinRoom}>전송</button>
 		</div>
 	);
 };

@@ -17,6 +17,11 @@ io.on("connection", (socket) => {
 	socket.on("message", ({ message, userName }) => {
 		io.emit("message", { message, userName });
 	});
+
+	socket.on("selectSquare", ({ currentBoard }) => {
+		console.log(currentBoard);
+		socket.broadcast.emit("sendSquare", { currentBoard });
+	});
 });
 
 server.listen(4000, function () {

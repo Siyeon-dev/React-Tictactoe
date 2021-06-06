@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
-import Game from "./Components/Game";
 import WaitingRoom from "./Components/WaitingRoom";
+import Game from "./Components/Game";
+import io from "socket.io-client";
+
+const PORT = process.env.PORT || 4000;
+const socket = io.connect(`http://localhost:${PORT}`);
 
 const App = () => {
 	const [joinRoom, setJoinRoom] = useState(false);
@@ -15,9 +19,10 @@ const App = () => {
 			onRoomState={setJoinRoom}
 			state={state}
 			setState={setState}
+			socket={socket}
 		/>
 	) : (
-		<Game />
+		<Game state={state} socket={socket} />
 	);
 };
 

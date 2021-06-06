@@ -15,7 +15,6 @@ io.on("connection", (socket) => {
 	});
 
 	socket.on("message", ({ message, userName }) => {
-		console.log(message, userName);
 		io.emit("message", { message, userName });
 	});
 });

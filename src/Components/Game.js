@@ -4,61 +4,28 @@ import Chat from "./Chat";
 
 const Game = (props) => {
 	const [isPlayer, setIsPlayer] = useState(true);
-	const [stepNumber, setStepNumber] = useState(0);
-	const [history, setHistory] = useState([
-		{
-			squares: Array(9).fill(null),
-		},
-	]);
+	const [board, setBoard] = useState(Array(9).fill(null));
 
 	const handleClick = (i) => {
-		const nowHistory = history.slice(0, stepNumber + 1);
-		const current = nowHistory[nowHistory.length - 1];
-		const squares = current.squares.slice();
+		const squares = board.slice();
 
 		// 이미 선택된 요소는 return
 		if (squares[i] || calculateWinner(squares)) return;
 
 		squares[i] = isPlayer ? "X" : "O";
 
-		setHistory(
-			nowHistory.concat([
-				{
-					squares,
-				},
-			])
-		);
-
+		setBoard(squares);
 		setIsPlayer(!isPlayer);
-		setStepNumber(nowHistory.length);
 	};
 
 	// =======
-	const winner = calculateWinner(history[history.length - 1].squares);
-	const current = history[stepNumber];
+	// const winner = calculateWinner(history[history.length - 1].squares);
 	const player = isPlayer ? "X" : "O";
 	let status;
 
-	console.log(current);
-
-	const moves = history.map((step, move) => {
-		const desc = move ? "Go to move #" + move : "Go to game start";
-
-		return (
-			<li key={move}>
-				<button onClick={() => jumpTo(move)}>{desc}</button>
-			</li>
-		);
-	});
-
-	const jumpTo = (step) => {
-		setStepNumber(step);
-		setIsPlayer(step % 2 === 0);
-	};
-
-	winner
-		? (status = "Winner : " + winner)
-		: (status = `Next Player : ${player}`);
+	// winner
+	// 	? (status = "Winner : " + winner)
+	// 	: (status = `Next Player : ${player}`);
 
 	return (
 		<div className='game-tictactoe'>
@@ -67,8 +34,7 @@ const Game = (props) => {
 				<h3>유저 이름 : {props.state.userName}</h3>
 			</div>
 			<div className='status'>{status}</div>
-			<Board squares={current.squares} onClick={handleClick} />
-			<ol className='record-game'>{moves}</ol>
+			<Board squares={board} onClick={handleClick} />
 			<Chat state={props.state} socket={props.socket} />
 		</div>
 	);

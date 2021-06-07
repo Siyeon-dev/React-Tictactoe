@@ -31,8 +31,6 @@ const App = () => {
 			onRoomState={setJoinRoom}
 			state={state}
 			setState={setState}
-			userTurn={userTurn}
-			setUserTurn={setUserTurn}
 			socket={socket}
 		/>
 	) : (

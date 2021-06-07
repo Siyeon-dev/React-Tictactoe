@@ -9,6 +9,18 @@ const socket = io.connect(`http://localhost:${PORT}`);
 const App = () => {
 	const [joinRoom, setJoinRoom] = useState(false);
 	const [state, setState] = useState({ userName: "", roomName: "" });
+	const [userTurn, setUserTurn] = useState(null);
+	let tempUserTurn = null;
+
+	useEffect(() => {
+		socket.on("onConnect", ({ isUserTurn }) => {
+			// 실행 컨텍스트 문제
+			if (tempUserTurn === null) {
+				setUserTurn(isUserTurn);
+				tempUserTurn = isUserTurn;
+			}
+		});
+	}, []);
 
 	useEffect(() => {
 		console.log("joinedROOM? : " + joinRoom);
@@ -19,6 +31,8 @@ const App = () => {
 			onRoomState={setJoinRoom}
 			state={state}
 			setState={setState}
+			userTurn={userTurn}
+			setUserTurn={setUserTurn}
 			socket={socket}
 		/>
 	) : (

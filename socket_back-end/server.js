@@ -8,10 +8,14 @@ const io = require("socket.io")(server, {
 	},
 });
 
+let isUserTurn = true;
+
 io.on("connection", (socket) => {
 	socket.on("onJoin", ({ roomName, userName }) => {
 		socket.join(roomName);
-		io.to(roomName).emit("onConnect", `${userName} 님이 접속하셨습니다. `);
+		io.to(roomName).emit("onConnect", { isUserTurn });
+
+		isUserTurn = !isUserTurn;
 	});
 
 	socket.on("message", ({ message, userName }) => {
@@ -19,7 +23,6 @@ io.on("connection", (socket) => {
 	});
 
 	socket.on("selectSquare", ({ currentBoard }) => {
-		console.log(currentBoard);
 		socket.broadcast.emit("sendSquare", { currentBoard });
 	});
 });

@@ -1,19 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import dotenv from "dotenv";
 
 dotenv.config();
 
 const WaitingRoom = (props) => {
-	useEffect(() => {
-		props.socket.on("onConnect", (msg) => {
-			console.log(msg);
-		});
-	}, []);
-
 	const handleJoinRoom = () => {
 		const { userName, roomName } = props.state;
 		props.socket.emit("onJoin", { userName, roomName });
-		console.log(userName, roomName);
 		props.onRoomState(true);
 	};
 

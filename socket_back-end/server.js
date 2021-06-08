@@ -23,7 +23,7 @@ io.on("connection", (socket) => {
 	});
 
 	socket.on("selectSquare", ({ currentBoard }) => {
-		socket.broadcast.emit("sendSquare", { currentBoard });
+		io.emit("sendSquare", { currentBoard });
 	});
 });
 

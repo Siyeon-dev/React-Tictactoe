@@ -9,6 +9,7 @@ const io = require("socket.io")(server, {
 });
 
 let isUserTurn = true;
+let isGameTurn = true;
 
 io.on("connection", (socket) => {
 	socket.on("onJoin", ({ roomName, userName }) => {
@@ -23,7 +24,10 @@ io.on("connection", (socket) => {
 	});
 
 	socket.on("selectSquare", ({ currentBoard }) => {
-		io.emit("sendSquare", { currentBoard });
+		io.emit("sendSquare", { currentBoard, isGameTurn });
+		console.log(`in SelectSquare : ${isGameTurn}`);
+
+		isGameTurn = !isGameTurn;
 	});
 });
 

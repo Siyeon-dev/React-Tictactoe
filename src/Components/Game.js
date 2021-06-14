@@ -31,7 +31,12 @@ const Game = (props) => {
 			`userTurn : ${props.userTurn} , isYourTurn in handler : ${isYourTurn}`
 		);
 
-		if (squares[i] !== null || isYourTurn !== props.userTurn) return;
+		if (
+			squares[i] !== null ||
+			isYourTurn !== props.userTurn ||
+			calculateWinner(squares)
+		)
+			return;
 		squares[i] = props.userTurn ? "O" : "X";
 
 		setTempSquares(squares);
@@ -44,7 +49,9 @@ const Game = (props) => {
 				<h3>유저 이름 : {props.state.userName}</h3>
 			</div>
 			<div className='status'>
-				{props.userTurn === isYourTurn
+				{calculateWinner(board)
+					? `게임이 끝났습니다.`
+					: props.userTurn === isYourTurn
 					? "당신 차례입니다."
 					: "상대방 차례입니다."}
 			</div>
@@ -53,5 +60,29 @@ const Game = (props) => {
 		</div>
 	);
 };
+
+function calculateWinner(squares) {
+	const lines = [
+		[0, 1, 2],
+		[3, 4, 5],
+		[6, 7, 8],
+		[0, 3, 6],
+		[1, 4, 7],
+		[2, 5, 8],
+		[0, 4, 8],
+		[2, 4, 6],
+	];
+	for (let i = 0; i < lines.length; i++) {
+		const [a, b, c] = lines[i];
+		if (
+			squares[a] &&
+			squares[a] === squares[b] &&
+			squares[a] === squares[c]
+		) {
+			return squares[a];
+		}
+	}
+	return null;
+}
 
 export default Game;

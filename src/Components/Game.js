@@ -11,7 +11,6 @@ const Game = (props) => {
 	useEffect(() => {
 		props.socket.on("sendSquare", ({ currentBoard, isGameTurn }) => {
 			setTempBoard(currentBoard);
-			console.log(isGameTurn);
 			setIsYourTurn(isGameTurn);
 		});
 	}, []);

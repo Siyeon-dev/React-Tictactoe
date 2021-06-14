@@ -23,7 +23,7 @@ const App = () => {
 	}, []);
 
 	useEffect(() => {
-		console.log("joinedROOM? : " + joinRoom);
+		console.log("isJoinedROOM? : " + joinRoom);
 	}, [joinRoom]);
 
 	return joinRoom === false ? (
@@ -34,7 +34,7 @@ const App = () => {
 			socket={socket}
 		/>
 	) : (
-		<Game state={state} socket={socket} />
+		<Game state={state} userTurn={userTurn} socket={socket} />
 	);
 };
 

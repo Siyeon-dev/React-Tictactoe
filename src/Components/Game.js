@@ -3,9 +3,9 @@ import Board from "./Board";
 import Chat from "./Chat";
 
 const Game = (props) => {
-	const [tempBoard, setTempBoard] = useState(Array(9).fill(null));
 	const [board, setBoard] = useState(Array(9).fill(null));
-	const [tempSquare, setTempSquare] = useState(Array(9).fill(null));
+	const [tempBoard, setTempBoard] = useState(Array(9).fill(null));
+	const [tempSquares, setTempSquares] = useState(Array(9).fill(null));
 
 	useEffect(() => {
 		props.socket.on("sendSquare", ({ currentBoard }) => {
@@ -18,16 +18,16 @@ const Game = (props) => {
 	}, [tempBoard]);
 
 	useEffect(() => {
-		setBoard(tempSquare);
-		props.socket.emit("selectSquare", { currentBoard: tempSquare });
-	}, [tempSquare]);
+		setBoard(tempSquares);
+		props.socket.emit("selectSquare", { currentBoard: tempSquares });
+	}, [tempSquares]);
 
 	const handleClick = (i) => {
 		const squares = board.slice();
 
-		squares[i] = "x";
+		squares[i] = props.userTurn ? "O" : "X";
 
-		setTempSquare(squares);
+		setTempSquares(squares);
 	};
 	// =======
 

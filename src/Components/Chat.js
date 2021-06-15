@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Socket } from "socket.io";
+import "./Chat.css";
 
 const Chat = (props) => {
 	const [message, setMessage] = useState("");
@@ -23,9 +23,15 @@ const Chat = (props) => {
 
 	const printMsg = () => {
 		return historyMsg.map((v, index) => {
+			let isYourMessage = null;
+
+			props.state.userName === v.userName
+				? (isYourMessage = true)
+				: (isYourMessage = false);
+
 			return (
-				<li key={index}>
-					message: {v.message} user:{v.userName}{" "}
+				<li key={index} className={`chat-log-${isYourMessage}`}>
+					{v.message}
 				</li>
 			);
 		});
@@ -46,10 +52,17 @@ const Chat = (props) => {
 
 	return (
 		<div className='chat'>
-			<label htmlFor='chat-input'>채팅 입력창</label>
-			<input className='chat-input' onChange={handleMsgChange} />
-			<button onClick={handleSendMsg}>전송</button>
-			<ol>{printMsg()}</ol>
+			<label className='chat-title' htmlFor='chat-input'>
+				채팅 입력창
+			</label>
+			<ol className='chat-list'>{printMsg()}</ol>
+
+			<div className='chat-form'>
+				<input className='chat-input' onChange={handleMsgChange} />
+				<button className='chat-submit' onClick={handleSendMsg}>
+					전송
+				</button>
+			</div>
 		</div>
 	);
 };

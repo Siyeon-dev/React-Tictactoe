@@ -42,20 +42,24 @@ const Game = (props) => {
 	};
 	// =======
 	return (
-		<div className='game-tictactoe'>
-			<div>
-				<h3>방번호 : {props.state.roomName}</h3>
-				<h3>유저 이름 : {props.state.userName}</h3>
+		<div className='game'>
+			<div className='game-info'>
+				<div className='game-info-user'>
+					<h3>방번호 : {props.state.roomName}</h3>
+					<h3>유저 이름 : {props.state.userName}</h3>
+				</div>
+				<div className='game-info-status'>
+					{calculateWinner(board)
+						? `게임이 끝났습니다.`
+						: props.userTurn === isYourTurn
+						? "당신 차례입니다."
+						: "상대방 차례입니다."}
+				</div>
 			</div>
-			<div className='status'>
-				{calculateWinner(board)
-					? `게임이 끝났습니다.`
-					: props.userTurn === isYourTurn
-					? "당신 차례입니다."
-					: "상대방 차례입니다."}
+			<div className='game-board'>
+				<Board squares={board} onClick={handleClick} />
+				<Chat state={props.state} socket={props.socket} />
 			</div>
-			<Board squares={board} onClick={handleClick} />
-			<Chat state={props.state} socket={props.socket} />
 		</div>
 	);
 };

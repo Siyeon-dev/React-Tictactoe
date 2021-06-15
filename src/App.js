@@ -29,8 +29,8 @@ const App = () => {
 	return joinRoom === false ? (
 		<WaitingRoom
 			onRoomState={setJoinRoom}
-			state={state}
 			setState={setState}
+			state={state}
 			socket={socket}
 		/>
 	) : (

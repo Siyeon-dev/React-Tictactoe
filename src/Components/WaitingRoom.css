@@ -17,7 +17,7 @@
 }
 
 .enter-game-title {
-	font-size: 56px;
+	font-size: 112px;
 	font-weight: 800;
 	margin: 0;
 	margin-bottom: 3px;
@@ -25,17 +25,18 @@
 
 .enter-game-desc {
 	margin-top: 0;
-	font-size: 15px;
-	font-weight: 400;
+	font-size: 30px;
+	font-weight: 300;
 	text-align: center;
 }
 
 input {
 	margin-top: 5px;
-	width: 223px;
+	width: 300px;
 	height: 20px;
 	border: none;
 	border-bottom: 1px solid #566270;
+	font-size: 16px;
 	opacity: 0.7;
 }
 
@@ -44,17 +45,18 @@ input:focus {
 }
 
 label {
-	font-size: 14px;
+	font-size: 26px;
 	margin-top: 10px;
 	font-weight: 400;
 }
 
 .enter-room {
 	margin-top: 7px;
-	width: 230px;
+	width: 310px;
 	height: 45px;
 	color: white;
 	background: #ec7357;
+	font-size: 24px;
 	font-weight: 500;
 	border: none;
 	border-radius: 4px;

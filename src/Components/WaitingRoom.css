@@ -17,8 +17,8 @@
 }
 
 .enter-game-title {
-	font-size: 112px;
-	font-weight: 800;
+	font-size: 102px;
+	font-weight: 600;
 	margin: 0;
 	margin-bottom: 3px;
 }
@@ -28,6 +28,18 @@
 	font-size: 30px;
 	font-weight: 300;
 	text-align: center;
+}
+
+.enter-room {
+	margin-top: 20px;
+	width: 310px;
+	height: 45px;
+	color: white;
+	background: #ec7357;
+	font-size: 24px;
+	font-weight: 500;
+	border: none;
+	border-radius: 4px;
 }
 
 input {
@@ -48,16 +60,4 @@ label {
 	font-size: 26px;
 	margin-top: 10px;
 	font-weight: 400;
-}
-
-.enter-room {
-	margin-top: 7px;
-	width: 310px;
-	height: 45px;
-	color: white;
-	background: #ec7357;
-	font-size: 24px;
-	font-weight: 500;
-	border: none;
-	border-radius: 4px;
 }

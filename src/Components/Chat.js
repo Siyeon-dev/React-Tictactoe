@@ -55,10 +55,16 @@ const Chat = (props) => {
 			<label className='chat-title' htmlFor='chat-input'>
 				채팅 입력창
 			</label>
-			<ol className='chat-list'>{printMsg()}</ol>
+			<div className='chat-box'>
+				<ol className='chat-list'>{printMsg()}</ol>
+			</div>
 
 			<div className='chat-form'>
-				<input className='chat-input' onChange={handleMsgChange} />
+				<input
+					className='chat-input'
+					onChange={handleMsgChange}
+					placeholder='채팅을 입력하세요'
+				/>
 				<button className='chat-submit' onClick={handleSendMsg}>
 					전송
 				</button>

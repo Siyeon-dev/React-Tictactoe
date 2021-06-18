@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Board from "./Board";
 import Chat from "./Chat";
+import "./Game.css";
 
 const Game = (props) => {
 	const [board, setBoard] = useState(Array(9).fill(null));
@@ -43,21 +44,23 @@ const Game = (props) => {
 	// =======
 	return (
 		<div className='game'>
-			<div className='game-info'>
-				<div className='game-info-user'>
-					<h3>방번호 : {props.state.roomName}</h3>
-					<h3>유저 이름 : {props.state.userName}</h3>
-				</div>
-				<div className='game-info-status'>
-					{calculateWinner(board)
-						? `게임이 끝났습니다.`
-						: props.userTurn === isYourTurn
-						? "당신 차례입니다."
-						: "상대방 차례입니다."}
-				</div>
-			</div>
 			<div className='game-board'>
-				<Board squares={board} onClick={handleClick} />
+				<div>
+					<div className='game-info'>
+						<div className='game-info-user'>
+							<h3>방번호 : {props.state.roomName}</h3>
+							<h3>유저 이름 : {props.state.userName}</h3>
+						</div>
+						<div className='game-info-status'>
+							{calculateWinner(board)
+								? `게임이 끝났습니다.`
+								: props.userTurn === isYourTurn
+								? "당신 차례입니다."
+								: "상대방 차례입니다."}
+						</div>
+					</div>
+					<Board squares={board} onClick={handleClick} />
+				</div>
 				<Chat state={props.state} socket={props.socket} />
 			</div>
 		</div>

@@ -22,9 +22,6 @@ const App = () => {
 		});
 	}, []);
 
-	useEffect(() => {
-		console.log("isJoinedROOM? : " + joinRoom);
-	}, [joinRoom]);
 
 	return joinRoom === false ? (
 		<WaitingRoom
